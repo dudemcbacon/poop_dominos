@@ -22,6 +22,7 @@ end
 get '/poop' do
   filepath = File.dirname(__FILE__) + '/static/poop.png'
   logger.warn filepath
+  logger.warn Dir.entries File.dirname(__FILE__) + '/static'
   image = Magick::Image.read(filepath).first
   prepare_image(image)
 end
