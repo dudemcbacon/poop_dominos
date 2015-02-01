@@ -1,5 +1,8 @@
 require 'sinatra'
 require 'rmagick'
+require 'httparty'
+
+AGENT_URL = "https://agent.electricimp.com/IxdMGFT6Ie3p/image"
 
 WIDTH = 264
 HEIGHT = 176
@@ -25,6 +28,27 @@ get '/poop' do
   logger.warn Dir.entries File.dirname(__FILE__) + '/static'
   image = Magick::Image.read(filepath).first
   prepare_image(image)
+end
+
+def test(image)
+  image.rotate!(180)
+  pixels = image.export_pixels(0, 0, WIDTH, HEIGHT, 'I')
+  options = {
+    :body => interlace(pixels)
+  }
+puts options
+  HTTParty.post(AGENT_URL, options)
+end
+
+
+def interlace(pixels)
+  image = ""
+  pixels.each_slice(WIDTH) do |row|
+    binned_pixels = row.map{|x| x > 0 ? WHITE : BLACK}
+    image << [binned_pixels.join].pack("B*")
+  end
+
+  return image
 end
 
 def start_page
@@ -54,7 +78,7 @@ end
 
 def prepare_image(image)
   image.rotate!(180)
-  pixels = image.export_pixels(0, 0, image.columns, image.rows, 'I')
+  pixels = image.export_pixels(0, 0, WIDTH, HEIGHT, 'I')
   pixels = pixels.map{|x| x > 0 ? WHITE : BLACK}
   return format_pixels(pixels)
 end
