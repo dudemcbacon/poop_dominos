@@ -12,6 +12,16 @@ get '/start' do
   prepare_image(image)
 end
 
+get '/pizza' do
+  image = Magick::Image.read(File.dirname(__FILE__) + '/static/pizza.png').first
+  prepare_image(image)
+end
+
+get '/poop' do
+  image = Magick::Image.read(File.dirname(__FILE__) + '/static/poop.png').first
+  prepare_image(image)
+end
+
 def start_page
   canvas = Magick::Image.new(264, 176){self.background_color = 'white'}
   gc = Magick::Draw.new
