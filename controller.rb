@@ -13,12 +13,16 @@ get '/start' do
 end
 
 get '/pizza' do
-  image = Magick::Image.read(File.dirname(__FILE__) + '/static/pizza.png').first
+  filepath = File.dirname(__FILE__) + '/static/pizza.png'
+  puts filepath
+  image = Magick::Image.read(filepath).first
   prepare_image(image)
 end
 
 get '/poop' do
-  image = Magick::Image.read(File.dirname(__FILE__) + '/static/poop.png').first
+  filepath = File.dirname(__FILE__) + '/static/poop.png'
+  puts filepath
+  image = Magick::Image.read(filepath).first
   prepare_image(image)
 end
 
