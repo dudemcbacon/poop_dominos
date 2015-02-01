@@ -31,7 +31,7 @@ def start_page
   gc = Magick::Draw.new
   gc.font_weight = Magick::BoldWeight
 
-  gc.annotate(canvas, 0, 0, 0, -10, "Chose Wisely") {
+  gc.annotate(canvas, 0, 0, 0, -10, "Choose Wisely") {
     self.gravity = Magick::CenterGravity
     self.font = "Helvetica-Narrow-Bold"
     self.pointsize = 40
