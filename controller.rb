@@ -14,14 +14,14 @@ end
 
 get '/pizza' do
   filepath = File.dirname(__FILE__) + '/static/pizza.png'
-  puts filepath
+  logger.warn filepath
   image = Magick::Image.read(filepath).first
   prepare_image(image)
 end
 
 get '/poop' do
   filepath = File.dirname(__FILE__) + '/static/poop.png'
-  puts filepath
+  logger.warn filepath
   image = Magick::Image.read(filepath).first
   prepare_image(image)
 end
